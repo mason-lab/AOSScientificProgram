@@ -1,0 +1,75 @@
+\documentclass[twoside]{article}
+
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{xargs}
+\usepackage{ifthen} % provides \ifthenelse test  
+\usepackage{xifthen} % provides \isempty test
+\usepackage{multicol}
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{113,60,136}
+\setlength{\columnsep}{1cm}
+
+%%% TABLE OF CONTENTS %%%
+\renewcommand{\contentsname}{}
+
+%%%% SETTING UP HEADER AND FOOTER%%%
+\fancyhf{}
+%\fancyhead[LO]{\large{Tucson, Arizona, USA}}
+%\fancyhead[RO]{\large{Abstract Book}}
+%\fancyhead[LE]{\large{AOS 2018 Meeting}}
+%\fancyhead[RE]{\large{9-14 April 2018}}
+\renewcommand{\headrulewidth}{0pt} %remove  underline of the header
+%\fancyfoot[CE,CO]{\thepage}
+%\setlength{\footskip}{8.39996pt}
+%\setlength{\headheight}{15pt}
+
+\begin{document}
+
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+\setlength{\parindent}{0cm}
+
+\newcommand\posterentry[3]{%
+	\begin{minipage}{\linewidth}
+	#1 \textbf{#2} \\ #3 \\
+	\end{minipage}
+}
+
+\begin{shaded}
+\Huge{\textcolor{white}{Wednesday Poster Session \normalsize 7:00--9:00 PM Turquoise Ballroom}}
+\end{shaded}
+
+* indicates student presenters eligible for AOS presentation award
+ 
+\begin{multicols}{2}
+
+\normalsize
+\input{wednesday.tex}
+
+\end{multicols}
+
+\newpage
+
+\begin{shaded}
+\Huge{\textcolor{white}{Thursday Poster Session \normalsize 7:30--9:30 PM Turquoise Ballroom}}
+\end{shaded}
+
+* indicates student presenters eligible for AOS presentation award
+
+\begin{multicols}{2}
+
+\normalsize
+\input{thursday.tex}
+
+\end{multicols}
+
+%\Large{Thursday Poster Session}
+%\input{thursday.tex}
+
+\end{document}

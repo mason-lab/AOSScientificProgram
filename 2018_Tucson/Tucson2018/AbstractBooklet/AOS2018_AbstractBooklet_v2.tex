@@ -1,0 +1,104 @@
+\documentclass[twoside]{article}
+
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{xargs}
+\usepackage{ifthen} % provides \ifthenelse test  
+\usepackage{xifthen} % provides \isempty test
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+%%% TABLE OF CONTENTS %%%
+\renewcommand{\contentsname}{}
+
+%%% SETTING UP HEADER AND FOOTER%%%
+\fancyhf{}
+\fancyhead[LO]{\large{Tucson, Arizona, USA}}
+\fancyhead[RO]{\large{Abstract Book}}
+\fancyhead[LE]{\large{AOS 2018 Meeting}}
+\fancyhead[RE]{\large{9-14 April 2018}}
+\renewcommand{\headrulewidth}{0pt} %remove  underline of the header
+\fancyfoot[CE,CO]{\thepage}
+%\setlength{\footskip}{8.39996pt}
+%\setlength{\headheight}{15pt}
+
+\begin{document}
+
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+\setlength{\parindent}{0cm}
+
+\newcommand\normaltalk[3]{%
+	\textbf{#1}
+	
+	\vspace{12pt}
+	
+	#2
+
+	\vspace{12pt}
+	
+        #3
+	
+	\begin{center}
+        \noindent\rule{2cm}{0.4pt}	
+        \end{center}
+        
+}
+
+\vspace{20pt}
+\begin{center}
+    \includegraphics[width=\textwidth]{/Users/NickMason/Desktop/Service/AOS_ProgramBooklet/Tucson2018/AbstractBooklet/AOS2018logo-transparent.png}
+    
+    \vspace{20pt}
+    
+    \huge{ABSTRACT BOOK}
+   
+    \vspace{20pt}
+    
+    \huge{Listed alphabetically by last name of presenting author}
+    
+    \tableofcontents
+
+	
+\end{center}
+
+\newpage
+
+\begin{center}
+\addcontentsline{toc}{subsection}{Oral Presentations}
+\Large{\textbf{ORAL PRESENTATIONS}}
+\end{center}
+
+\begin{multicols*}{2}
+\input{normaltalks.tex}
+\end{multicols*}
+
+\newpage
+
+\begin{center}
+\addcontentsline{toc}{subsection}{Lightning Talks}
+\Large{\textbf{LIGHTNING TALKS}}
+\end{center}
+
+\begin{multicols*}{2}
+\input{lightningtalks.tex}
+\end{multicols*}
+
+
+\newpage
+
+\begin{center}
+\addcontentsline{toc}{subsection}{Posters}
+\Large{\textbf{POSTERS}}
+\end{center}
+
+\begin{multicols*}{2}
+\input{posters.tex}
+\end{multicols*}
+
+\end{document}
