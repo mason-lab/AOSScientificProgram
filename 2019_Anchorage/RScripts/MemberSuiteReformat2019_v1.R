@@ -3,9 +3,9 @@ require(xlsx)
 require(XML)
 require(tools)
 require(Hmisc)
-
+~
 ### Read in xlsx ###
-talks<-read.xlsx2("~/Desktop/DesktopClutter25Oct/Service/AOS/AOS_ScientificProgramCommittee/2019/AOS 2019 Abstracts_Master_21 May 2019.xlsx",sheetName="Search Results",stringsAsFactors=F)
+talks<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_24 May 2019.v3.xlsx",sheetName="Search Results",stringsAsFactors=F)
 
 head(talks)
 colnames(talks)

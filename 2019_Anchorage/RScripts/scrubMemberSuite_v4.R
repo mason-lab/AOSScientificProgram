@@ -12,10 +12,7 @@ html2txt <- function(str) {
 }
 
 ### Read in xlsx ###
-talks<-read.xlsx2("~/Desktop/DesktopClutter25Oct/Service/AOS/AOS_ScientificProgramCommittee/2019/AOS 2019 Abstracts_Master_21 May 2019.xlsx",sheetName="Search Results",stringsAsFactors=F)
-head(talks)
-
-head(talks)
+talks<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_24 May 2019.v3.xlsx",sheetName="Search Results",stringsAsFactors=F)
 
 ### See format of data frame here ###
 colnames(talks)
@@ -71,7 +68,6 @@ colnames(talks)[23]
 talks[23]=="Yes"
 
 name_vec_lists<-lapply(seq(55,121,6),function(x) (x:(x+2)))
-
 for(i in 1:length(name_vec_lists)){
 	talks[,(ncol(talks)+1)]<-rep(NA,nrow(talks))
 	for(j in 1:nrow(talks)){
