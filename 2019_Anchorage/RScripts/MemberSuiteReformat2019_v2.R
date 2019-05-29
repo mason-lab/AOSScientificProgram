@@ -5,21 +5,18 @@ require(tools)
 require(Hmisc)
 
 ### Read in xlsx ###
-talks<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_24 May 2019.v4.xlsx",sheetName="Search Results",stringsAsFactors=F)
-light.tites<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_21 May 2019.xlsx",sheetName="Search Results",stringsAsFactors=F)
+talks<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_28 May 2019.xlsx",stringsAsFactors=F,sheetName="Search Results")
+talks$LightningTitle<-rep("",nrow(talks))
 
-rownames(talks)
-talks$Entry.ID
+### Get lightning titles ###
+lighttalks<-read.xlsx2("~/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_21 May 2019.xlsx",stringsAsFactors=F,sheetName="Search Results")
 
-entry_ID<-light.tites$Entry.ID[light.tites$LightningTitle!=""]
-light_tites<-light.tites$LightningTitle[light.tites$LightningTitle!=""]
+lightID<-lighttalks[lighttalks$LightningTitle!="",]$Entry.ID
+lighttite<-lighttalks[lighttalks$LightningTitle!="",]$LightningTitle
 
-talks$LightningTitle<-rep(NA,nrow(talks))
-for(i in 1:length(entry_ID)){
-	talks[which(talks$Entry.ID== entry_ID[i]),]$LightningTitle<-light_tites[i]
+for(i in 1:length(lightID)){
+	talks[which(talks$Entry.ID == lightID[i]),]$LightningTitle<-lighttite[i]
 }
-
-write.xlsx2(talks,file="/Users/NickMason/AOSScientificProgram/2019_Anchorage/AOS 2019 Abstracts_Master_24 May 2019.v5.xlsx",row.names=F)
 
 ### Remove weird characters from Abstracts ###
 talks$Abstract<-gsub("","---",talks$Abstract)
@@ -30,6 +27,12 @@ talks$Abstract <-gsub("ʻ","'",talks$Abstract)
 talks$Abstract <-gsub("“","\"",talks$Abstract)
 talks$Abstract <-gsub("”","\"",talks$Abstract)
 talks$Abstract <-gsub("‘","'",talks$Abstract)
+talks$Abstract <-gsub("%","\\\\%",talks$Abstract)
+talks$Abstract <-gsub("\\$","\\\\$",talks$Abstract)
+talks$Abstract <-gsub("<","$<$",talks$Abstract)
+talks$Abstract <-gsub(">","$>$",talks$Abstract)
+talks$Abstract <-gsub("_","\\\\_",talks$Abstract)
+talks$Abstract <-gsub("\\^","\\textasciicircum ",talks$Abstract)
 
 ### Remove weird characters from Title ###
 talks$Title<-gsub("\\n"," ",talks$Title)
@@ -152,7 +155,7 @@ talks$FullLongAuthor <-gsub("ñ","\\\\~{n}",talks$FullLongAuthor)
 talks$Title<-paste0("\\capitalisewords{",talks$Title,"}")
 
 ### Create tex files for talk matrix ###
-posters<-talks[talks$FORMAT=="Poster",]
+posters_ids<-talks[talks$FORMAT=="Poster",]
 talks<-talks[!(talks$FORMAT=="Poster"),]
 
 ### Get Room Info for Talks ###
@@ -195,7 +198,7 @@ for(i in 1:length(day_time_list)){
 			col_color_vec<-rep(1,length(levels(day_time_room_list[[k]]$Room.Name)))
 			col_color_vec[symp_rooms]<-2
 			
-			sink(file=paste("~/AOSScientificProgram/2019_Anchorage/TeX/",names(day_list)[i],"-TimeSlot",names(day_time_list[[i]])[j],"-",names(day_time_room_list)[k],".tex",sep=""))
+			sink(file=paste("~/AOSScientificProgram/2019_Anchorage/BlockSchedule/",names(day_list)[i],"-TimeSlot",names(day_time_list[[i]])[j],"-",names(day_time_room_list)[k],".tex",sep=""))
 			
 			cat("\\begin{tabular}{|x{0.8cm}")
 			for(m in 1:length(col_color_vec)){
@@ -228,8 +231,6 @@ for(i in 1:length(day_time_list)){
 				}
 
 			day_time_room_list[[k]]<-day_time_room_list[[k]][!is.na(day_time_room_list[[k]]$TimeSession),]
-			
-			
 			
 			times<-unique(day_time_room_list[[k]]$Time)
 			
@@ -291,19 +292,33 @@ for(i in 1:length(day_time_list)){
 		}
 	}
 }
+sink()
+i
+j
+k
 
 ### Create Poster Output ###
+posters<-posters_ids
+posters$Day ## Created earlier in this same file in which we split talks from posters ###
+
+posters$Poster.Number<-paste(sapply(strsplit(posters$Day,""),function(x) x[1]),".",sprintf("%03s",posters$Topical.Poster.Order),sep="")
+posters<-posters[order(posters$Poster.Number),]
+
+### Split posters into two different days ###
+poster_sessions<-split(posters,posters$Day)
+
 for(i in 1:length(poster_sessions)){
 	
-	sink(paste("~/Desktop/Service/AOS_ProgramBooklet/Tucson2018/PosterList/",c("wednesday","thursday")[i],".tex",sep=""))
-	poster_sessions[[i]]$poster_number<-paste(i,".",poster_sessions[[i]]$Timeslot,sep="")
-	poster_sessions[[i]]<-poster_sessions[[i]][order(as.numeric(poster_sessions[[i]]$Timeslot)),]
+	sink(paste("~/AOSScientificProgram/2019_Anchorage/PosterList/",c("wednesday","thursday")[i],".tex",sep=""))
 	
+	poster_sessions[[i]]$PaperPoster[is.na(poster_sessions[[i]]$PaperPoster)]<-"0"
+	poster_sessions[[i]]$Student.Prez.Award.Competitors.1[is.na(poster_sessions[[i]]$Student.Prez.Award.Competitors.1)]<-"0"
+
 	for(j in 1:nrow(poster_sessions[[i]])){
-		if(poster_sessions[[i]]$paperPoster[j]=="1"){
-			cat("\\posterentry{",poster_sessions[[i]]$poster_number[j],"}{",sep="")
+		if(as.character(poster_sessions[[i]]$PaperPoster)[j]=="1"){
+			cat("\\posterentry{",poster_sessions[[i]]$Poster.Number[j],"}{",sep="")
 	
-			if(poster_sessions[[i]]$Prez.Award[j]==1){
+			if(poster_sessions[[i]]$Student.Prez.Award.Competitors.1[j]==1){
 				poster_sessions[[i]]$FullShortAuthor[j]<-paste("*", poster_sessions[[i]]$FullShortAuthor[j],sep="")
 			}
 			
@@ -313,3 +328,86 @@ for(i in 1:length(poster_sessions)){
 		}	
 	sink()
 }
+
+########################
+### ABSTRACT BOOKLET ###
+########################
+posters_ab<-posters
+
+### Sort by last name of presenting author ###
+posters_which_auth<-as.numeric(sapply(strsplit(posters_ab $Presenting.Author,""),function(x) x[1]))
+posters_column_vec<-seq(60,126,6)[posters_which_auth]
+
+poster_present_vec<-vector()
+for(i in 1:length(posters_which_auth)){
+	poster_present_vec[i]<-posters_ab[i, posters_column_vec[i]]
+	auth_foo<-strsplit(posters_ab $FullLongAuthor[i],", ")[[1]]
+	auth_foo[posters_which_auth[i]] <-paste0("\\underline{",auth_foo[posters_which_auth[i]],"}")
+	posters_ab $FullLongAuthor[i]<-paste(auth_foo,collapse=", ")
+}
+posters_ab <-posters_ab[order(poster_present_vec),]
+
+sink("~/AOSScientificProgram/2019_Anchorage/AbstractBook/posters.tex")
+for(i in 1:nrow(posters_ab)){
+	cat("\\normaltalk")
+	cat("{", posters_ab $Title[i],"}",sep="")
+	cat("{", posters_ab $FullLongAuthor[i],"}",sep="")
+	cat("{", posters_ab $Abstract[i],"}",sep="")
+	cat("\n\n")
+}
+sink()
+
+### Lightning Talks ###
+l_talks<-talks[talks$Session.Title=="Lightning Talks",]
+l_talks<-l_talks[!l_talks$Presenting.Author=="",]
+
+### Sort by last name of presenting author ###
+which_auth<-as.numeric(sapply(strsplit(l_talks$Presenting.Author,""),function(x) x[1]))
+present_vec<-seq(60,126,6)[which_auth]
+
+ln_present_vec<-vector()
+for(i in 1:length(present_vec)){
+	ln_present_vec[i]<-l_talks[i,present_vec[i]]
+	auth_foo<-strsplit(l_talks$FullLongAuthor[i],", ")[[1]]
+	auth_foo[which_auth[i]] <-paste0("\\underline{",auth_foo[which_auth[i]],"}")
+	l_talks$FullLongAuthor[i]<-paste(auth_foo,collapse=", ")
+}
+l_talks<-l_talks[order(ln_present_vec),]
+
+sink("~/AOSScientificProgram/2019_Anchorage/AbstractBook/lightningtalks.tex")
+for(i in 1:nrow(l_talks)){
+	cat("\\normaltalk")
+	cat("{", l_talks $Title[i],"}",sep="")
+	cat("{", l_talks $FullLongAuthor[i],"}",sep="")
+	cat("{", l_talks $Abstract[i],"}",sep="")
+	cat("\n\n")
+}
+
+sink()
+
+### "NORMAL" Talks ###
+n_talks<-talks[talks$Entry.ID!="",]
+
+### Sort by last name of presenting author ###
+n_talks_which_auth<-as.numeric(sapply(strsplit(n_talks$Presenting.Author,""),function(x) x[1]))
+n_talks_present_vec<-seq(60,126,6)[n_talks_which_auth]
+
+n_talks_present_author<-vector()
+for(i in 1:length(n_talks_present_vec)){
+	n_talks_present_author[i]<-n_talks[i, n_talks_present_vec[i]]
+	auth_foo<-strsplit(n_talks $FullLongAuthor[i],", ")[[1]]
+
+	auth_foo[n_talks_which_auth[i]] <-paste0("\\underline{",auth_foo[n_talks_which_auth[i]],"}")
+	n_talks$FullLongAuthor[i]<-paste(auth_foo,collapse=", ")
+}
+n_talks <-n_talks[order(n_talks_present_author),]
+
+sink("~/AOSScientificProgram/2019_Anchorage/AbstractBook/normaltalks.tex")
+for(i in 1:nrow(n_talks)){
+	cat("\\normaltalk")
+	cat("{", n_talks $Title[i],"}",sep="")
+	cat("{", n_talks $FullLongAuthor[i],"}",sep="")
+	cat("{", n_talks $Abstract[i],"}",sep="")
+	cat("\n\n")
+}
+sink()
