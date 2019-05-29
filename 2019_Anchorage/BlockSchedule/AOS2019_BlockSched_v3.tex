@@ -43,8 +43,10 @@
 
 %% Column colors %%
 \definecolor{alaskablue}{HTML}{bdd3ed}
+\definecolor{lightning}{HTML}{fff0ad}
 
 \newcolumntype{a}[1]{>{\columncolor{alaskablue}\centering\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{y}[1]{>{\columncolor{lightning}\centering\arraybackslash\hspace{0pt}}m{#1}}
 
 %%% TABLE OF CONTENTS %%%
 \renewcommand{\contentsname}{}
@@ -62,7 +64,7 @@
 
 \begin{document}
 
-\MFUnocap{for}\MFUnocap{the}\MFUnocap{and}\MFUnocap{of}\MFUnocap{but}\MFUnocap{in}\MFUnocap{a}\MFUnocap{an}  %%WHICH LETTERS STAY LOWERCASE
+\MFUnocap{for}\MFUnocap{the}\MFUnocap{and}\MFUnocap{of}\MFUnocap{but}\MFUnocap{in}\MFUnocap{a}\MFUnocap{an}\MFUnocap{is}\MFUnocap{on}\MFUnocap{via}\MFUnocap{vs}\MFUnocap{by}\MFUnocap{from}\MFUnocap{with}\MFUnocap{to}\MFUnocap{among}\MFUnocap{or}\MFUnocap{that}\MFUnocap{across}\MFUnocap{as}\MFUnocap{it}\MFUnocap{into}\MFUnocap{if}\MFUnocap{at}\MFUnocap{situ}                  %%WHICH WORDS STAY LOWERCASE
 
 \newcommand\seshmatrix[3]{
     \Large\bsifamily{
@@ -73,8 +75,6 @@
    
     \newpage
 }
-
-%\begin{landscape}
 
 \def\arraystretch{1.5}
 
@@ -99,7 +99,5 @@
 \seshmatrix{Friday}{Late Afternoon}{3-Friday-TimeSlotC-RoomSet1.tex}
 \seshmatrix{Friday}{Late Afternoon}{3-Friday-TimeSlotC-RoomSet2.tex}
 %%
-%
-%\end{landscape}
 
 \end{document}

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  28 MAY 2019 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  29 MAY 2019 15:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**AOS2019_BlockSched_v2.tex
-(./AOS2019_BlockSched_v2.tex
+**AOS2019_BlockSched_v3.tex
+(./AOS2019_BlockSched_v3.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/article.cls
@@ -658,29 +658,28 @@ Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 \RaggedRightParindent=\skip79
 \JustifyingParindent=\skip80
 )
-(./AOS2019_BlockSched_v2.aux)
-\openout1 = `AOS2019_BlockSched_v2.aux'.
+No file AOS2019_BlockSched_v3.aux.
+\openout1 = `AOS2019_BlockSched_v3.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 63.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 65.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 63.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 65.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -783,12 +782,12 @@ Dictionary: translator-basic-dictionary, Language: English
 (/usr/local/texlive/2016/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
 File: siunitx-abbreviations.cfg 2016/03/01 v2.6q siunitx: Abbreviated units
 ) ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 63.
+LaTeX Info: Redefining \selectfont on input line 65.
 \c__siunitx_mathsf_int=\count156
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 63.
+(Font)              <7> on input line 65.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 63.
+(Font)              <5> on input line 65.
 \c__siunitx_mathtt_int=\count157
 LaTeX Font Info:    Font shape `T1/pbsi/xl/n' will be
 (Font)              scaled to size 17.27994pt on input line 81.
@@ -800,37 +799,100 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 4.
 ) [1
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./1-We
 dnesday-TimeSlotA-RoomSet2.tex)
-[2] (./1-Wednesday-TimeSlotB-RoomSet1.tex) [3]
-(./1-Wednesday-TimeSlotB-RoomSet2.tex) [4]
-(./1-Wednesday-TimeSlotC-RoomSet1.tex) [5]
-(./1-Wednesday-TimeSlotC-RoomSet2.tex) [6] (./2-Thursday-TimeSlotA-RoomSet1.tex
-) [7] (./2-Thursday-TimeSlotA-RoomSet2.tex) [8]
-(./2-Thursday-TimeSlotB-RoomSet1.tex) [9] (./2-Thursday-TimeSlotB-RoomSet2.tex)
-[10] (./2-Thursday-TimeSlotC-RoomSet1.tex) [11]
-(./2-Thursday-TimeSlotC-RoomSet2.tex) [12] (./3-Friday-TimeSlotA-RoomSet1.tex)
-[13] (./3-Friday-TimeSlotA-RoomSet2.tex) [14]
-(./3-Friday-TimeSlotB-RoomSet1.tex) [15] (./3-Friday-TimeSlotB-RoomSet2.tex)
-[16] (./3-Friday-TimeSlotC-RoomSet1.tex) [17]
-(./3-Friday-TimeSlotC-RoomSet2.tex) [18] (./AOS2019_BlockSched_v2.aux) ) 
+[2] (./1-Wednesday-TimeSlotB-RoomSet1.tex
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 8.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)) [3]
+(./1-Wednesday-TimeSlotB-RoomSet2.tex
+Overfull \vbox (22.17741pt too high) detected at line 10
+ []
+
+) [4] (./1-Wednesday-TimeSlotC-RoomSet1.tex) [5]
+(./1-Wednesday-TimeSlotC-RoomSet2.tex
+Overfull \vbox (36.82988pt too high) detected at line 16
+ []
+
+) [6] (./2-Thursday-TimeSlotA-RoomSet1.tex) [7]
+(./2-Thursday-TimeSlotA-RoomSet2.tex
+Overfull \vbox (22.17741pt too high) detected at line 8
+ []
+
+
+Overfull \vbox (36.82988pt too high) detected at line 12
+ []
+
+) [8] (./2-Thursday-TimeSlotB-RoomSet1.tex
+Overfull \vbox (12.82988pt too high) detected at line 9
+ []
+
+) [9] (./2-Thursday-TimeSlotB-RoomSet2.tex) [10]
+(./2-Thursday-TimeSlotC-RoomSet1.tex
+Overfull \vbox (20.82988pt too high) detected at line 10
+ []
+
+) [11] (./2-Thursday-TimeSlotC-RoomSet2.tex) [12]
+(./3-Friday-TimeSlotA-RoomSet1.tex) [13] (./3-Friday-TimeSlotA-RoomSet2.tex
+Overfull \vbox (68.74593pt too high) detected at line 10
+ []
+
+
+Overfull \vbox (45.65591pt too high) detected at line 14
+ []
+
+) [14] (./3-Friday-TimeSlotB-RoomSet1.tex
+Overfull \vbox (20.64087pt too high) detected at line 10
+ []
+
+) [15] (./3-Friday-TimeSlotB-RoomSet2.tex
+Overfull \vbox (12.82988pt too high) detected at line 8
+ []
+
+
+Overfull \vbox (38.17741pt too high) detected at line 14
+ []
+
+) [16] (./3-Friday-TimeSlotC-RoomSet1.tex
+Overfull \vbox (46.17741pt too high) detected at line 8
+ []
+
+
+Overfull \vbox (36.82988pt too high) detected at line 14
+ []
+
+) [17] (./3-Friday-TimeSlotC-RoomSet2.tex
+Overfull \vbox (46.17741pt too high) detected at line 8
+ []
+
+
+Overfull \vbox (52.82988pt too high) detected at line 14
+ []
+
+) [18] (./AOS2019_BlockSched_v3.aux) ) 
 Here is how much of TeX's memory you used:
- 13965 strings out of 493014
- 277046 string characters out of 6133351
- 318063 words of memory out of 5000000
- 17299 multiletter control sequences out of 15000+600000
- 32357 words of font info for 40 fonts, out of 8000000 for 9000
+ 14007 strings out of 493014
+ 277571 string characters out of 6133351
+ 318173 words of memory out of 5000000
+ 17333 multiletter control sequences out of 15000+600000
+ 35430 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,17n,43p,10372b,275s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/l
-ocal/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/20
-16/texmf-dist/fonts/type1/public/brushscr/BrushScriptX-Italic.pfa></usr/local/t
-exlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/201
-6/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-di
-st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on AOS2019_BlockSched_v2.pdf (18 pages, 175095 bytes).
+{/usr/local/texlive/2016/texmf-dist/fonts
+/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/b
+rushscr/BrushScriptX-Italic.pfa></usr/local/texlive/2016/texmf-dist/fonts/type1
+/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times
+/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on AOS2019_BlockSched_v3.pdf (18 pages, 176062 bytes).
 PDF statistics:
  79 PDF objects out of 1000 (max. 8388607)
  54 compressed objects within 1 object stream

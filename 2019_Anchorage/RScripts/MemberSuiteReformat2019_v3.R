@@ -33,6 +33,8 @@ talks$Abstract <-gsub("<","$<$",talks$Abstract)
 talks$Abstract <-gsub(">","$>$",talks$Abstract)
 talks$Abstract <-gsub("_","\\\\_",talks$Abstract)
 talks$Abstract <-gsub("\\^","\\textasciicircum ",talks$Abstract)
+talks$Abstract <-gsub("Ō","\\\\={O}",talks$Abstract)
+talks$Abstract <-gsub("ā","\\\\={a}",talks$Abstract)
 
 ### Remove weird characters from Title ###
 talks$Title<-gsub("\\n"," ",talks$Title)
@@ -43,13 +45,15 @@ talks$Title<-gsub("”","\"",talks$Title)
 talks$Title<-gsub("ʻ","'",talks$Title)
 talks$Title<-gsub("‘","'",talks$Title)
 talks$Title<-gsub("Ō","\\\\={O}",talks$Title)
+talks$Title<-gsub("ā","\\\\={a}",talks$Title)
 talks$Title<-gsub("–","--",talks$Title)
 talks$Title<-gsub("–","--",talks$Title)
-talks$Title<-gsub("°","\\textdegree ",talks$Title)
+talks$Title<-gsub("-","-",talks$Title)
+talks$Title<-gsub("°","\\\\textdegree ",talks$Title)
+#talks$Title<-gsub("ebird ","{e}Bird",talks$Title,ignore.case=T)
 
 ### Fix Session Titles ###
-talks$Session.Title<-gsub("Sym","Symposium",talks$Session.Title)
-talks$Session.Title[grep("Symposium",talks$Session.Title)]<-gsub(":","",talks$Session.Title[grep("Symposium",talks$Session.Title)])
+talks$Session.Title<-gsub("Sym: ","Symposium ",talks$Session.Title)
 
 talks$Session.Title<-gsub("’","'",talks$Session.Title)
 talks$Session.Title<-gsub("Popn","Population",talks$Session.Title)
@@ -67,7 +71,11 @@ for(i in 1:length(talks$Title)){
 	}
 }	
 
+
 talks$Title[talks$Title==toupper(talks$Title)]<-toTitleCase(gsub("([[:alpha:]])([[:alpha:]]+)", "\\U\\1\\L\\2", talks$Title[talks$Title==toupper(talks$Title)], perl=TRUE))
+talks$Title<-toTitleCase(talks$Title)
+talks$Title<-gsub("Nsf","{NSF}",talks$Title,ignore.case=F)
+talks$Title<-gsub("Stem","{STEM}",talks$Title,ignore.case=F)
 
 ### Clean Middle Names ###
 midcols<-grep("middle",colnames(talks),ignore.case=T)
@@ -79,6 +87,7 @@ for(i in 1:length(midcols)){
 	talks[,midcols[i]]<-gsub("[.]","",talks[,midcols[i]])
 	talks[,midcols[i]]<-gsub("-","",talks[,midcols[i]])
 	talks[,midcols[i]]<-gsub("_","",talks[,midcols[i]])
+	talks[,midcols[i]]<-gsub("\"","",talks[,midcols[i]])
 	talks[,midcols[i]]<-sapply(talks[,midcols[i]], function(x) paste(sapply(strsplit(strsplit(x," ")[[1]],""),function(x) x[1]),collapse=""))
 }
 
@@ -94,6 +103,12 @@ for(i in 1:length(firstlastcols)){
 	talks[,firstlastcols[i]]<-gsub("[.]","", talks[,firstlastcols[i]])
 	talks[,firstlastcols[i]]<-gsub("ñ","\\\\~{n}", talks[,firstlastcols[i]])
 	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("^\\s+|\\s+$", "", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("ö", "\\\"{o}", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("å", "\\\r{a}", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("Å", "\\\r{A}", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("ó", "\\\'{o}", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("Â", "\\^{A}", x))
+	talks[,firstlastcols[i]] <-sapply(talks[,firstlastcols[i]], function(x) gsub("‐", "-", x))
 }
 
 ### Create Cleaned Author Strings [both FULL and SHORT versions] ###
@@ -108,7 +123,6 @@ for(i in 1:length(name_vec_lists)){
 }
 
 colnames(talks)[(ncol(talks)-11):ncol(talks)]<-paste("Author",1:12,"Full Name")
-talks[,(ncol(talks)-11):ncol(talks)]
 
 ### Create SHORT version of Author Names for Block Schedules ###
 for(i in 1:length(name_vec_lists)){
@@ -154,7 +168,9 @@ talks$FullShortAuthor<-gsub("é","\\\\'{e}",talks$FullShortAuthor)
 talks$FullLongAuthor <-gsub("ñ","\\\\~{n}",talks$FullLongAuthor)
 
 ### Encapsulate titles in \capitalisewords for LaTeX ###
+talks$Title<-gsub("\"","\" ",talks$Title)
 talks$Title<-paste0("\\capitalisewords{",talks$Title,"}")
+talks$Title<-gsub("\" ","\"",talks$Title)
 
 ### Create tex files for talk matrix ###
 posters_ids<-talks[talks$FORMAT=="Poster",]
@@ -177,10 +193,12 @@ day_list<-split(talks,talks$Day)
 day_time_list<-lapply(day_list,function(x) split(x,x$TimeSession))
 
 ### Create tex files for matrix, 2 per day (1 for rooms 1:6, another for rooms 7:12) ###
-i<-2
-j<-1
-k<-1
+i<-1
+j<-2
+k<-2
 
+
+nexttite<-rep(NA,6)
 for(i in 1:length(day_time_list)){
 	for(j in 1:length(day_time_list[[i]])){
 		day_time_list[[i]][[j]]$Room.Name<-factor(day_time_list[[i]][[j]]$Room.Name,levels=levels(day_time_list[[i]][[j]]$Room.Name)[unique(sort(as.numeric(day_time_list[[i]][[j]]$Room.Name)))])
@@ -221,25 +239,48 @@ for(i in 1:length(day_time_list)){
 			
 			### Format LIGHTNING talks if present ###
 			if(any(day_time_room_list[[k]]$Session.Title == "Lightning Talks")){
-				light_time_slots<-unlist(lapply(as.numeric(unique(day_time_room_list[[k]]$Time)),function(x) seq(x,x+10,5)))
-				light_tf<-talks$Day==day_time_room_list[[k]]$Day[1] & talks$TimeSession == day_time_room_list[[k]]$TimeSession[1] & talks$Time %in% light_time_slots & as.character(talks$Room.Name) %in% as.character(day_time_room_list[[k]]$Room.Name)
-				light_tf[is.na(light_tf)]<-T
+				light_df<-talks[talks$Day== day_time_room_list[[k]]$Day[1] & talks$Session.Title =="Lightning Talks",]
+				light_df$"Author 1 Short Name"[light_df$Title=="\\capitalisewords{}"]<-""
+				light_df$Title[light_df$Title=="\\capitalisewords{}"]<-""
+				light_df<-light_df[order(as.numeric(light_df$Timeslot)),]
+												
+				light_df$Title<-paste0("\\scriptsize ", light_df$LightningTitle,"\\par \\tiny ", light_df$"Author 1 Short Name"," et al.")
+				light_df$Title[light_df$Title=="\\scriptsize \\par \\tiny  et al."]<-""
 				
-				talks[light_tf,]$Session.Title
+				light_titles_full<-sapply(lapply(seq(1,13,3),function(x) x:(x+2)),function(x) paste(light_df$Title[x],collapse="\\par - - - - - - - - - - - - - - - - - \\par \\vspace{2pt} "))
+				light_titles_full[grep("\\vspace[{]2pt[}] NA",light_titles_full)]<-""
+				day_time_room_list[[k]][day_time_room_list[[k]]$Session.Title== "Lightning Talks",]<-day_time_room_list[[k]][day_time_room_list[[k]]$Session.Title== "Lightning Talks",][order(as.numeric(day_time_room_list[[k]][day_time_room_list[[k]]$Session.Title== "Lightning Talks",]$Timeslot)),]
+				day_time_room_list[[k]][day_time_room_list[[k]]$Session.Title== "Lightning Talks",]$Title<-light_titles_full
 				
-				day_time_room_list[[k]]<-talks[light_tf,]
-											
-				light_titles<-paste0("\\scriptsize ", day_time_room_list[[k]][day_time_room_list[[k]] $Session.Title == "Lightning Talks",]$LightningTitle,"\\par \\tiny ",day_time_room_list[[k]][day_time_room_list[[k]] $Session.Title == "Lightning Talks",]$"Author 1 Short Name"," et al. ")
-				
-				light_titles_full<-sapply(lapply(seq(1,13,3),function(x) x:(x+2)),function(x) paste(light_titles[x],collapse="\\par - - - - - - - - - - - - - - - - - \\par \\vspace{2pt} "))
-				day_time_room_list[[k]][day_time_room_list[[k]]$Session.Title== "Lightning Talks",]$Title[seq(1,13,3)]<-light_titles_full
 				}
 
 			day_time_room_list[[k]]<-day_time_room_list[[k]][!is.na(day_time_room_list[[k]]$TimeSession),]
+			day_time_room_list[[k]]$Room.Name<-factor(day_time_room_list[[k]]$Room.Name,levels=levels(day_time_room_list[[k]]$Room.Name)[sort(as.numeric(unique(day_time_room_list[[k]]$Room.Name)))])
 			
 			times<-unique(day_time_room_list[[k]]$Time)
 			
 			for(m in 1:length(times)){
+				### Make session header for this page ###	
+				if(m==1){
+					symptite<-day_time_room_list[[k]]$Session.Title[!duplicated(as.numeric(day_time_room_list[[k]]$Room.Name))]
+					symptite<-symptite[order(unique(as.numeric(day_time_room_list[[k]]$Room.Name)))]
+					
+						cat("\\rule{0pt}{1em} ")			
+						cat("\\textbf{Session} &")
+						symptite<-gsub("/","\\textbackslash ",gsub("&","\\\\&", symptite),fixed=T)
+						if(length(grep("Symposium", symptite)>0)){
+							symp_sesh<-grep("Symposium", symptite)
+							symptite[symp_sesh]<-gsub("Symposium ","", symptite[symp_sesh])
+							symptite[symp_sesh]<-paste("\\footnotesize \\textbf{\\underline{Symposium}} \\par \\textbf{\\capitalisewords{",symptite[symp_sesh],"}}",sep="")
+							symptite[which(!1:length(symptite) %in% symp_sesh)]<-paste("\\footnotesize \\textbf{\\capitalisewords{",symptite[which(!1:length(symptite) %in% symp_sesh)],"}}",sep="")
+						}else{
+							symptite<-paste("\\footnotesize \\textbf{\\capitalisewords{",symptite,"}}",sep="")
+						}
+						cat(symptite, sep=" & ")
+						cat("&\\\\[25ex]\n")
+						cat("\\hline\n")
+					}
+
 				this_time<-day_time_room_list[[k]][day_time_room_list[[k]]$Time == times[m],]				
 					
 				this_time<-this_time[order(as.numeric(this_time$Room.Name)),]
@@ -250,24 +291,7 @@ for(i in 1:length(day_time_list)){
 					this_time[grep("NA",rownames(this_time)),]<-rep("",ncol(this_time))
 					rownames(this_time)<-levels(day_time_room_list[[k]]$Room.Name)[sort(as.numeric(unique(day_time_room_list[[k]]$Room.Name)))]
 				}
-				### Make session header for this page ###	
-				if(m==1){
-						cat("\\rule{0pt}{1em} ")			
-						cat("\\textbf{Session} &")
-						symptite<-gsub("/","\\textbackslash ",gsub("&","\\\\&", this_time$Session.Title),fixed=T)
-						if(length(grep("Symposium",this_time$Session.Title)>0)){
-							symp_sesh<-grep("Symposium",this_time$Session.Title)
-							symptite[symp_sesh]<-gsub("Symposium ","", symptite[symp_sesh])
-							symptite[symp_sesh]<-paste("\\footnotesize \\textbf{\\underline{Symposium}} \\par \\textbf{\\capitalisewords{",symptite[symp_sesh],"}}",sep="")
-						}else{
-							symptite<-paste("\\footnotesize \\textbf{\\capitalisewords{",symptite,"}}",sep="")
-						}
-						cat(symptite, sep=" & ")
-						cat("&\\\\[25ex]\n")
-						#cat("\\rule{0pt}{1em} ")			
-						cat("\\hline\n")
-				}
-				
+												
 				### Write out time in first column ### 
 				cat("\\makecell{",times[m],"}&",sep="")
 							
@@ -276,17 +300,46 @@ for(i in 1:length(day_time_list)){
 					this_time$Title[this_time$Student.Prez.Award.Competitors.1=="1"]<-paste0("*",this_time$Title[this_time$Student.Prez.Award.Competitors.1=="1"])
 				}
 				
+				
+				
 				### Also check for 30 min talk and create multi col & /cline if so ###
-				cline_vec<-vector()
 				for(n in 1:nrow(this_time)){
 					if(this_time$Session.Title[n]=="Lightning Talks"){
 						cat(this_time$Title[n])
 					}else{
+						if(this_time$X30min.[n]=="30min"){
+							cat("")
+							nexttite[n]<-paste("\\multirow{-2}{2.65cm}[6em]{\\parbox{2.65cm}{\\centering ", this_time$Title[n]," \\\\ \\vspace{8pt} ","\\textit{", this_time$FullShortAuthor[n],"}}}",sep="")
+							
+						}else{
+							if(!is.na(nexttite[n])){
+								cat(nexttite[n])
+								nexttite[n]<-NA
+							}else{
 						cat(this_time$Title[n]," \\par \\vspace{8pt} ", "\\textit{", this_time$FullShortAuthor[n],"}",sep="")
+							}
 						}
+					}	
 					if(n<nrow(this_time)){cat(" & ")}else{next}
 				}
-			cat("&\\\\[25ex]\n\\hline\n")
+			cat("&\\\\[25ex]\n")
+			
+			if(any(this_time$X30min.=="30min")){
+				thirty_vec<-this_time$X30min.=="30min"
+				rle_thirty<-rle(thirty_vec)
+				cat("\\hhline{|-")
+				for(c in 1:length(rle_thirty$lengths)){
+					if(rle_thirty$values[c]){
+						cat(">{\\arrayrulecolor{alaskablue}}")
+					}else{
+						cat(">{\\arrayrulecolor{black}}")						
+					}
+					cat("*{",rle_thirty$lengths[c],"}{|-}",sep="")
+						
+				}
+				cat("|}\n")
+			}else{cat("\\hline\n")}
+			
 			}
 			
 			
