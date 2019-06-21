@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  12 JUN 2019 12:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  14 JUN 2019 10:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -885,7 +885,7 @@ Overfull \vbox (54.00719pt too high) detected at line 14
 Here is how much of TeX's memory you used:
  14014 strings out of 493014
  277672 string characters out of 6133351
- 321173 words of memory out of 5000000
+ 321194 words of memory out of 5000000
  17335 multiletter control sequences out of 15000+600000
  40389 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -896,7 +896,7 @@ rushscr/BrushScriptX-Italic.pfa></usr/local/texlive/2016/texmf-dist/fonts/type1
 /urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on AOS2019_BlockSched_v8.pdf (18 pages, 194039 bytes).
+Output written on AOS2019_BlockSched_v8.pdf (18 pages, 194036 bytes).
 PDF statistics:
  79 PDF objects out of 1000 (max. 8388607)
  54 compressed objects within 1 object stream
